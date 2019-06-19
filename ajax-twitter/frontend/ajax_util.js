@@ -10,7 +10,17 @@ const AjaxUtil = {
       dataType: 'json',
       method
     })
-  )
+  ),
+
+  searchUsers: (query) => {
+
+    $.ajax({
+      url: `/users/${id}`,
+      method: 'get',
+      dataType: 'json',
+      data: { query }
+    });
+  }
 };
 
 

@@ -105,7 +105,17 @@ const AjaxUtil = {
       dataType: 'json',
       method
     })
-  )
+  ),
+
+  searchUsers: (query) => {
+
+    $.ajax({
+      url: `/users/${id}`,
+      method: 'get',
+      dataType: 'json',
+      data: { query }
+    });
+  }
 };
 
 
@@ -185,14 +195,35 @@ module.exports = FollowToggle;
 /***/ (function(module, exports, __webpack_require__) {
 
 const FollowToggle = __webpack_require__(/*! ./follow_toggle */ "./frontend/follow_toggle.js");
+const UserSearch = __webpack_require__(/*! ./users_search */ "./frontend/users_search.js");
 
 $( () => {
-  $fts = $('button.follow-toggle');
-
-  $fts.each( (i, $button ) => new FollowToggle($button, {}) );
-
+  $('button.follow-toggle').each( (i, $button ) => new FollowToggle($button, {}) );
+  $('nav.users-search').each( (i, $button ) => new UserSearch($button, {}) );
 
 } );
+
+/***/ }),
+
+/***/ "./frontend/users_search.js":
+/*!**********************************!*\
+  !*** ./frontend/users_search.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const AjaxUtil = __webpack_require__ (/*! ./ajax_util */ "./frontend/ajax_util.js");
+
+class UserSearch {
+  constructor(el, options) {
+    this.$el = $(el);
+    this.input = this.$el.data('user-search-input') || options.input;
+    this.ul = $el.find('ul');
+  }
+}
+
+
+module.exports = UserSearch;
 
 /***/ })
 
